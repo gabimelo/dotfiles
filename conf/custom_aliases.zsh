@@ -1,4 +1,7 @@
 alias nv=nvim
+alias tm=tmux
+alias cl=claude
+alias cx=codex
 
 alias gdwn="git diff -- . ':(exclude)*.ipynb'"
 alias ys="yarn start"
@@ -9,11 +12,20 @@ alias jup_lab_ext="conda install -c conda-forge nodejs && jupyter labextension i
 
 alias zsh_update='source ~/.zshrc'
 alias zsh_edit='nvim ~/.zshrc'
-alias aliases_edit='nvim $ZSH_CUSTOM/custom_aliases.zsh'
+alias aliases_edit='nvim ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/custom_aliases.zsh'
 
-alias copy='xclip -sel clip'
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
+if command -v pbcopy >/dev/null 2>&1; then
+  alias copy='pbcopy'
+elif command -v wl-copy >/dev/null 2>&1; then
+  alias copy='wl-copy'
+  alias pbcopy='wl-copy'
+  alias pbpaste='wl-paste'
+elif command -v xclip >/dev/null 2>&1; then
+  alias copy='xclip -selection clipboard'
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
+fi
+
 alias grepr='grep -r --exclude=\*.pyc --exclude=\*.csv --exclude="**/.mypy_cache/**" --exclude-dir=.dvc --exclude-dir=.pytest-cache'
 alias t="tree -I '__pycache__'"
 alias wk="workon"
@@ -22,5 +34,17 @@ alias freeze='pip freeze > requirements.txt'
 
 alias aws="docker run --rm -it --network=host -v ~/.aws:/root/.aws amazon/aws-cli"
 
-# git spice
-# alias gss="gs repo sync; gs stack restack; gs stack submit"
+jup_from_env() {
+  python -m ipykernel install --user --name "$1" --display-name "$1"
+}
+
+sedr() {
+  original=${1}
+  new=${2}
+  directory=${3:-.}
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    find "${directory}" -type f -name '*.py' -exec sed -i '' "s/${original}/${new}/g" {} +
+  else
+    find "${directory}" -type f -name '*.py' -exec sed -i "s/${original}/${new}/g" {} +
+  fi
+}

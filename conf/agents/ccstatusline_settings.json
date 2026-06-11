@@ -1,0 +1,58 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "model",
+        "type": "model",
+        "color": "cyan"
+      },
+      {
+        "id": "separator-1",
+        "type": "separator"
+      },
+      {
+        "id": "context",
+        "type": "context-percentage",
+        "color": "brightBlue"
+      }
+    ],
+    [
+      {
+        "id": "branch",
+        "type": "git-branch",
+        "color": "brightRed"
+      },
+      {
+        "id": "separator-2",
+        "type": "separator"
+      },
+      {
+        "id": "changes",
+        "type": "git-changes"
+      }
+    ],
+    [
+      {
+        "id": "cwd",
+        "type": "current-working-dir",
+        "color": "brightCyan"
+      }
+    ]
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "minimalistMode": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [],
+    "separatorInvertBackground": [],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false,
+    "continueThemeAcrossLines": false
+  }
+}

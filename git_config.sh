@@ -1,14 +1,21 @@
-git config --global user.email ""
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+read -r -p "Git email: " git_email
+
+git config --global user.email "${git_email}"
 git config --global user.name "Gabriela Melo"
 
-# Assumes SSH key does not exist yet
-ssh-keygen -t rsa -b 4096 -C "email"
+ssh_key="${HOME}/.ssh/id_ed25519"
 
-if ! eval $(ssh-agent -s) | grep -q 'Agent pid'; then
-   echo "SSH Agent seems not to be running, please verify";
-   exit
+if [[ ! -f "${ssh_key}" ]]; then
+  ssh-keygen -t ed25519 -C "${git_email}" -f "${ssh_key}"
 fi
 
-ssh-add ~/.ssh/id_rsa
+if ! ssh-add "${ssh_key}" >/dev/null 2>&1; then
+  eval "$(ssh-agent -s)"
+  ssh-add "${ssh_key}"
+fi
 
-cat ~/.ssh/id_rsa.pub
+cat "${ssh_key}.pub"

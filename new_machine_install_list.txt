@@ -1,8 +1,16 @@
-1password
-Chrome
-Docker
-iTerm2
-MeetingBar
-Slack
-Spotify
-Superwhisper
+Manual apps:
+- 1Password
+- Chrome
+- Ghostty
+- Granola
+- Slack
+- Spotify
+- Superwhisper/FluidVoice
+
+Developer tools to confirm after scripts:
+- Claude Code
+- Codex
+- Docker
+- GitHub CLI auth (`gh auth login`)
+- Homebrew on macOS
+- Language runtimes not managed by fnm or pyenv

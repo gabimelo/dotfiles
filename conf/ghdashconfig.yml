@@ -1,0 +1,37 @@
+prSections:
+  - title: My PRs
+    filters: is:open author:@me sort:updated
+  - title: Review requested
+    filters: is:open -is:draft review-requested:@me -review:approved sort:updated
+  - title: Involved
+    filters: is:open -is:draft involves:@me -author:@me -review:approved sort:updated
+  - title: Recent merged
+    filters: is:merged involves:@me sort:updated updated:>={{ nowModify "-2w" }}
+defaults:
+  preview:
+    open: true
+    width: 80
+  prsLimit: 40
+  view: prs
+theme:
+  ui:
+    sectionsShowCount: true
+    table:
+      showSeparator: false
+      compact: false
+  colors:
+    text:
+      primary: "#E2E1ED"
+      secondary: "#666CA6"
+      inverted: "#242347"
+      faint: "#B0B3BF"
+      warning: "#E0AF68"
+      success: "#3DF294"
+    background:
+      selected: "#1B1B33"
+    border:
+      primary: "#383B5B"
+      secondary: "#39386B"
+      faint: "#2B2B40"
+pager:
+  diff: delta
