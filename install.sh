@@ -175,6 +175,7 @@ link_configs() {
   link_path "${dotfiles_dir}/conf/agents/codex/hooks.json" "${HOME}/.codex/hooks.json"
   link_path "${dotfiles_dir}/conf/agents/codex/rules" "${HOME}/.codex/rules"
   link_path "${dotfiles_dir}/conf/agents/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
+  link_path "${dotfiles_dir}/conf/agents/claude/settings.json" "${HOME}/.claude/settings.json"
   link_path "${dotfiles_dir}/conf/agents/claude/hooks/attention.sh" "${HOME}/.claude/hooks/attention.sh"
   link_path "${dotfiles_dir}/conf/agents/ccstatusline_settings.json" "${HOME}/.config/ccstatusline/settings.json"
 }

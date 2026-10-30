@@ -6,6 +6,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(
   fzf-tab
   git
+  kubectl
   z
   zsh-autosuggestions
   zsh-completions
@@ -96,3 +97,9 @@ custom_aliases="${ZSH_CUSTOM:-${ZSH}/custom}/custom_aliases.zsh"
 if [[ -f "$custom_aliases" ]]; then
   source "$custom_aliases"
 fi
+
+export PATH="$HOME/.local/bin:$PATH"
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+export COREPACK_ENABLE_DOWNLOAD_PROMPT=0

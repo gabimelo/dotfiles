@@ -2,6 +2,7 @@ alias nv=nvim
 alias tm=tmux
 alias cl=claude
 alias cx=codex
+alias gss="gs repo sync; gs stack restack; gs stack submit"
 
 alias gdwn="git diff -- . ':(exclude)*.ipynb'"
 alias ys="yarn start"

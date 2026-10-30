@@ -26,6 +26,47 @@ vim.api.nvim_set_keymap("n", "<leader>h", ":bprevious<bar>bd#<CR>", { noremap = 
 vim.api.nvim_set_keymap("n", "<C-d>", ":bd<CR>", { noremap = true, silent = true, desc = "Delete buffer" })
 vim.api.nvim_set_keymap("t", "<C-w>", "<C-\\><C-n>", { noremap = true, silent = true, desc = "Exit terminal mode" })
 
+local function open_pr_for_current_line()
+    local file = vim.fn.expand("%:p")
+    if file == "" then
+        vim.notify("no file for current buffer", vim.log.levels.WARN)
+        return
+    end
+
+    local file_dir = vim.fn.fnamemodify(file, ":h")
+    local git_root = vim.fn.systemlist({ "git", "-C", file_dir, "rev-parse", "--show-toplevel" })[1]
+    if vim.v.shell_error ~= 0 or not git_root or git_root == "" then
+        vim.notify("not in a git repository", vim.log.levels.WARN)
+        return
+    end
+
+    local line = vim.fn.line(".")
+    local sha = vim.fn.systemlist({
+        "git", "-C", git_root,
+        "log", "-1", "--format=%H",
+        "-L", string.format("%d,%d:%s", line, line, file),
+    })[1]
+    if vim.v.shell_error ~= 0 or not sha or sha == "" then
+        vim.notify("no blame sha", vim.log.levels.WARN)
+        return
+    end
+
+    vim.system({
+        "gh", "pr", "list", "--search", sha, "--state", "merged",
+        "--json", "url", "--jq", ".[0].url",
+    }, { text = true, cwd = git_root }, function(o)
+        local url = vim.trim(o.stdout or "")
+        vim.schedule(function()
+            if url == "" then
+                vim.notify("no PR for " .. sha:sub(1, 7), vim.log.levels.WARN)
+            else
+                vim.ui.open(url)
+            end
+        end)
+    end)
+end
+vim.keymap.set("n", "<leader>gP", open_pr_for_current_line, { desc = "Open PR for line" })
+
 vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>o", ":Neotree focus<CR>", { noremap = true, silent = true })
 

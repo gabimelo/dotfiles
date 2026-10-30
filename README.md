@@ -57,3 +57,14 @@ The installer backs up existing destination files before creating symlinks.
 
 Existing files are moved aside with a timestamped `.bak.*` suffix before
 symlinks are created.
+
+Claude settings include terminal-bell notifications and the ccstatusline command.
+Work-specific authentication, permissions, plugins, and machine paths are omitted.
+The installer backs up an existing `~/.claude/settings.json` before linking these settings.
+
+## Updating Configs
+
+Portable settings are adapted from `~/src/gmelo-dotfiles`. Keep the cross-platform
+shell setup and clipboard fallbacks when refreshing them. RDE bootstrap scripts,
+secrets, work-specific settings, session layouts, and installed skill links stay in
+the source repo.

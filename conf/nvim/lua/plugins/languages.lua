@@ -1,10 +1,17 @@
 return {
-  { "ixru/nvim-markdown" },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {},
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     opts = {
-      ensure_installed = { "bash", "lua", "python", "typescript" },
+      ensure_installed = { "bash", "kotlin", "lua", "markdown", "markdown_inline", "python", "typescript" },
     },
   },
   {
